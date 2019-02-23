@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Gymfolio</string>
+    <string name="begin_workout">Begin Workout</string>
+    <string name="customize_workout">Customize Workout</string>
+</resources>
