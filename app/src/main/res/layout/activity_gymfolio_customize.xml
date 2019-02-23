@@ -7,5 +7,106 @@
     tools:context=".GymfolioMainActivity">
 
 
+    <Switch
+        android:id="@+id/swc_monday"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginEnd="127dp"
+        android:text="@string/monday"
+        app:layout_constraintBottom_toTopOf="@+id/swc_tuesday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swc_tuesday" />
 
+    <Switch
+        android:id="@+id/swc_tuesday"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginEnd="127dp"
+        android:text="@string/tuesday"
+        app:layout_constraintBottom_toTopOf="@+id/swc_wednesday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swc_monday" />
+
+    <Switch
+        android:id="@+id/swc_wednesday"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginEnd="127dp"
+        android:text="@string/wednesday"
+        app:layout_constraintBottom_toTopOf="@+id/swc_thursday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swc_tuesday" />
+
+    <Switch
+        android:id="@+id/swc_thursday"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginEnd="127dp"
+        android:text="@string/thursday"
+        app:layout_constraintBottom_toTopOf="@+id/swc_friday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swc_wednesday" />
+
+    <Switch
+        android:id="@+id/swc_friday"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginEnd="127dp"
+        android:text="@string/friday"
+        app:layout_constraintBottom_toTopOf="@+id/swc_saturday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swc_thursday" />
+
+    <Switch
+        android:id="@+id/swc_saturday"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginEnd="127dp"
+        android:text="@string/saturday"
+        app:layout_constraintBottom_toTopOf="@+id/swc_sunday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swc_friday" />
+
+    <Switch
+        android:id="@+id/swc_sunday"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/sunday"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swc_saturday" />
+
+    <TextView
+        android:id="@+id/txt_customize_intro"
+        android:layout_width="385dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/customize_intro"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/swc_monday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

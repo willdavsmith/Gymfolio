@@ -2,4 +2,12 @@
     <string name="app_name">Gymfolio</string>
     <string name="begin_workout">Begin Workout</string>
     <string name="customize_workout">Customize Workout</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="customize_intro">Choose days to customize</string>
 </resources>
