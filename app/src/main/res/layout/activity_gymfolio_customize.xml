@@ -99,7 +99,7 @@
         android:layout_width="385dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="39dp"
         android:text="@string/customize_intro"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -124,4 +124,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/swc_sunday"
         app:layout_constraintTop_toBottomOf="@+id/txt_customize_intro" />
+
 </android.support.constraint.ConstraintLayout>

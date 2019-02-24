@@ -9,7 +9,7 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
-    <string name="customize_intro">Choose days to customize</string>
+    <string name="customize_intro">Choose one day to customize</string>
     <string name="exit">Exit</string>
     <string name="save">Save</string>
     <string name="example_workout">3x15 Bench 45</string>

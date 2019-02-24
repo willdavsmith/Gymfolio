@@ -30,9 +30,6 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
         View AddButton = findViewById(R.id.btn_add_workout);
         AddButton.setOnClickListener(this);
 
-        // A string array representing the string values of the days of the week
-        String[] weekdays = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-
         // Get the extra data sent by the last activity
         Bundle bundle = getIntent().getExtras();
 
@@ -40,27 +37,29 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
         if (bundle != null) {
             // Get the boolean array sent by the last activity
             // (see 'weekdaysSelected' from GymfolioCustomizeActivity')
-            boolean[] value = bundle.getBooleanArray("weekdaysSelectedArray");
+            String value = bundle.getString("weekdaySelected");
 
             // Instantiate the adapter with a ListView (this), the android default list item layout,
             // and the above ArrayList.
+            // Adapted from
+            // https://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todaysWorkouts);
             setListAdapter(adapter);
 
-            for (int i=0; i<value.length; i++) {
-                if (value[i]) {
-                    adapter.add(weekdays[i]);
-                    Log.d(TAG, weekdays[i]);
-                }
-            }
+            //TODO: ADD FILE I/O TO GET CURRENT WORKOUTS
+            adapter.add(value);
         }
     }
 
     public void onClick(View v) {
         switch(v.getId()) {
             // In the case where the user selects the 'Add' Button,
-            // Add an item to the ListView
+            // Invoke a dialog requesting the user to input a workout
+            // and add it to the listView
             case R.id.btn_add_workout:
+                //TODO: ADD DIALOG FOR USER INPUT
+                //TODO: ADD USER INFO TO FILE
+                //TODO: ADD TOAST (SUCCESS!)
                 adapter.add("sample");
         }
     }

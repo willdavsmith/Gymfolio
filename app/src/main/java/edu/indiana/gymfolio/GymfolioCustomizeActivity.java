@@ -21,6 +21,9 @@ public class GymfolioCustomizeActivity extends AppCompatActivity implements OnCl
     // Aggregating the switches into one array for ease of access
     Switch[] switches;
 
+    // A string array representing the string values of the days of the week
+    String[] weekdays = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,22 +51,31 @@ public class GymfolioCustomizeActivity extends AppCompatActivity implements OnCl
             // When the user chooses the 'save' button,
             // check the state of the buttons and save the information.
             case R.id.btn_save:
-                boolean[] weekdaysSelected = new boolean[7];
+                String weekdaySelected = "none";
 
                 int x = 0;
-                // For every switch on screen, update the weekdaysSelected
-                // array with the expected value
-                // (true for on, false for off)
+                // For every switch on screen, update weekdaySelected
+                // as the selected day
                 for (Switch s : switches) {
-                    weekdaysSelected[x] = s.isChecked();
+                    if (s.isChecked()) weekdaySelected = weekdays[x];
                     x++;
                 }
-                Intent i = new Intent(this, GymfolioSelectActivity.class);
-                // As well as switching to the new Activity, send data in the form of a
-                // boolean array containing info about what items are currently selected
-                i.putExtra("weekdaysSelectedArray",weekdaysSelected);
-                startActivity(i);
-                break;
+
+                // If the user selected a valid day
+                if (!weekdaySelected.equals("none")) {
+                    Intent i = new Intent(this, GymfolioSelectActivity.class);
+                    // As well as switching to the new Activity, send data in the form of a
+                    // String containing info about what item is currently selected
+                    i.putExtra("weekdaySelected", weekdaySelected);
+                    startActivity(i);
+                    break;
+                }
+                else {
+                    // Otherwise, go back to the main screen
+                    Intent i = new Intent(this, GymfolioMainActivity.class);
+                    startActivity(i);
+                    break;
+                }
         }
     }
 }
