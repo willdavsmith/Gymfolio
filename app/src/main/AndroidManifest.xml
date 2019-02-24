@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".GymfolioCustomizeActivity" />
+        <activity android:name=".GymfolioWorkoutActivity" />
+        <activity android:name=".GymfolioSelectActivity" />
     </application>
 
 </manifest>

@@ -10,4 +10,6 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="customize_intro">Choose days to customize</string>
+    <string name="exit">Exit</string>
+    <string name="save">Save</string>
 </resources>
