@@ -41,5 +41,8 @@ public class GymfolioMainActivity extends AppCompatActivity implements OnClickLi
 
         View CustomizeButton = findViewById(R.id.btn_customize_workout);
         CustomizeButton.setOnClickListener(this);
+
+        View ExitButton = findViewById(R.id.btn_exit);
+        ExitButton.setOnClickListener(this);
     }
 }

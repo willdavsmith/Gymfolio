@@ -12,4 +12,6 @@
     <string name="customize_intro">Choose days to customize</string>
     <string name="exit">Exit</string>
     <string name="save">Save</string>
+    <string name="example_workout">3x15 Bench 45</string>
+    <string name="add_button">Add</string>
 </resources>
