@@ -36,12 +36,15 @@ public class GymfolioMainActivity extends AppCompatActivity implements OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gymfolio_main);
 
+        // Set the click listener for the begin button
         View BeginButton = findViewById(R.id.btn_begin_workout);
         BeginButton.setOnClickListener(this);
 
+        // Set the click listener for the customize button
         View CustomizeButton = findViewById(R.id.btn_customize_workout);
         CustomizeButton.setOnClickListener(this);
 
+        // Set the click listener for the exit button
         View ExitButton = findViewById(R.id.btn_exit);
         ExitButton.setOnClickListener(this);
     }

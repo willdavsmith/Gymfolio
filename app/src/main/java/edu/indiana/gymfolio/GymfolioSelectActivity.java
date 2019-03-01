@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//TODO: COMMENT
 public class GymfolioSelectActivity extends ListActivity implements OnClickListener {
 
     // Logcat tag for debugging purposes
@@ -137,7 +136,7 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
      * @return A workout object representation of the given string value.
      * @throws FormatException in the case of an unexpected format.
      */
-    public Workout parseWorkoutFromString(String value) throws FormatException {
+    public static Workout parseWorkoutFromString(String value) throws FormatException {
         // parse the elements into a String array with the , split character
         // if the given string will not parse properly, throw an exception.
         String[] parsedElements = value.split(",");
