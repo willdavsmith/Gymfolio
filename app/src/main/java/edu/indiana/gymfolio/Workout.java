@@ -50,4 +50,7 @@ public class Workout {
     public String toString() {
         return sets + "x" + reps + " " + workoutName + " at " + weight;
     }
+    public String toUnparsedString() {
+        return sets + "," + reps + "," + workoutName + "," + weight;
+    }
 }

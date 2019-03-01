@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,7 +26,6 @@ import static edu.indiana.gymfolio.GymfolioSelectActivity.parseWorkoutFromString
 
 public class GymfolioWorkoutActivity extends ListActivity {
 
-    // TODO: crashing
     String TAG = "SELECTEDITEMSFROMWEEK";
 
     // ArrayList that will store the user's workouts for the day
@@ -45,24 +43,18 @@ public class GymfolioWorkoutActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "here");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gymfolio_workout);
-
-        Log.d(TAG, today + "   ");
 
         Date now = new Date();
         SimpleDateFormat s = new SimpleDateFormat("EEEE");
         today = s.format(now);
-        Log.d(TAG, today);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todaysWorkouts);
         setListAdapter(adapter);
 
-        // TODO crashes if this doesnt exist
         directory = getFilesDir();
         workoutFile = new File(directory, today + ".txt");
-        Log.d(TAG, workoutFile.toString());
 
         try {
             wkts = getAllWorkouts(today);

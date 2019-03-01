@@ -41,6 +41,8 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
     // A string representing the current day.
     String day;
 
+    // TODO: ADD DELETE BUTTON
+
     /**
      * Handles the on creation event for the SelectActivity.
      * @param savedInstanceState A Bundle Object with information from the last activity.
@@ -52,6 +54,9 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
 
         View AddButton = findViewById(R.id.btn_add_workout);
         AddButton.setOnClickListener(this);
+
+        View RemoveButton = findViewById(R.id.btn_remove_workout);
+        RemoveButton.setOnClickListener(this);
 
         // Get the extra data sent by the last activity
         Bundle bundle = getIntent().getExtras();
@@ -162,6 +167,34 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
     }
 
     /**
+     * Removes a string from the instance variable 'workoutFile'
+     * @param str The string to be removed.
+     * @throws IOException in the case of an IO Error in removing from the file.
+     */
+    public void removeStrFromFile(String str) throws IOException {
+        Scanner input;
+        File tempFile = new File(directory, "temp.txt");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        input = new Scanner(workoutFile);
+        // while a new line exists
+        while(input.hasNextLine()) {
+            // trim newline when comparing with lineToRemove
+            String line = input.nextLine();
+            try {
+                if(parseWorkoutFromString(line).toString().equals(str)) continue;
+            }
+            catch (Exception e) {
+                // Do nothing.
+            }
+
+            writer.write(line + '\n');
+        }
+        input.close();
+        writer.close();
+        Log.d(TAG, "" + tempFile.renameTo(workoutFile));
+    }
+
+    /**
      * Parses and adds a workout to the local ArrayList of current workouts.
      * @param value The unparsed workout string to be added.
      * @throws FormatException in the case of an unexpected format.
@@ -176,17 +209,19 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
     }
 
     /**
-     * Handles the sole button on screen, the 'add' button.
+     * Handles the buttons on the screen
      * @param v The button view that may be clicked.
      */
     @SuppressWarnings("deprecation")
     public void onClick(View v) {
-        switch(v.getId()) {
+        if (v.getId() == R.id.btn_add_workout) {
             // In the case where the user selects the 'Add' Button,
             // Invoke a dialog requesting the user to input a workout
             // and add it to the listView
-            case R.id.btn_add_workout:
-                showDialog(0);
+            showDialog(0);
+        }
+        else if (v.getId() == R.id.btn_remove_workout) {
+            showDialog(1);
         }
     }
 
@@ -196,81 +231,135 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
      * @return a Dialog object.
      */
     protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            // Constructs the Dialog Box using a switch case with one option
-            case 0:
-                // Adapted from
-                // https://stackoverflow.com/questions/18799216/how-to-make-a-edittext-box-in-a-dialog
+        if (id == 0) {
+            // Adapted from
+            // https://stackoverflow.com/questions/18799216/how-to-make-a-edittext-box-in-a-dialog
 
-                // Create the input text box and instantiate the AlertDialog Builder
-                final EditText input = new EditText(this);
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            // Create the input text box and instantiate the AlertDialog Builder
+            final EditText input = new EditText(this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-                // Set the title and the intro message
-                alert.setTitle("Workout Customizer");
-                alert.setMessage("Sets,Reps,Name,Weight");
+            // Set the title and the intro message
+            alert.setTitle("      Workout Customizer     ");
+            alert.setMessage("Format: Sets,Reps,Name,Weight");
 
-                // Set the view for the AlertDialog Builder, in this case, set it to the EditText box
-                alert.setView(input);
+            // Set the view for the AlertDialog Builder, in this case, set it to the EditText box
+            alert.setView(input);
 
-                // When the user writes their information into the EditText box,
-                // Update the ListView holding their information and additionally
-                // Show a Toast Dialog showing that the item was saved successfully
-                alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // flag for determining whether or not a workout should be added to the ListView
-                        boolean flag = true;
+            // When the user writes their information into the EditText box,
+            // Update the ListView holding their information and additionally
+            // Show a Toast Dialog showing that the item was saved successfully
+            alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // flag for determining whether or not a workout should be added to the ListView
+                    boolean flag = true;
 
-                        // input value from user
-                        String value = input.getText().toString();
+                    // input value from user
+                    String value = input.getText().toString();
 
-                        // append the input to the file
-                        // if this operation fails, inform the user
-                        // and do not add it to the listView.
+                    // append the input to the file
+                    // if this operation fails, inform the user
+                    // and do not add it to the listView.
+                    try {
+                        appendStrToFile(value);
+                    }
+                    catch (IOException e) {
+                        Toast.makeText(getBaseContext(), "Failed to append to file", Toast.LENGTH_SHORT).show();
+                        flag = false;
+                    }
+
+                    // try to add the workout to the array list
+                    // if this operation fails, inform the user
+                    // and do not add it to the listView.
+                    try {
+                        addWorkout(value);
+                    }
+                    catch (FormatException e) {
+                        Toast.makeText(getBaseContext(), "Wrong Format", Toast.LENGTH_SHORT).show();
+                        flag = false;
+                    }
+
+                    // if flag is still true, then the string is safe to parse and add to the adapter.
+                    // if this fails for some reason, inform the user.
+                    if (flag) {
                         try {
-                            appendStrToFile(value);
-                        }
-                        catch (IOException e) {
-                            Toast.makeText(getBaseContext(), "Failed to append to file", Toast.LENGTH_SHORT).show();
-                            flag = false;
-                        }
-
-                        // try to add the workout to the array list
-                        // if this operation fails, inform the user
-                        // and do not add it to the listView.
-                        try {
-                            addWorkout(value);
+                            adapter.add(parseWorkoutFromString(value).toString());
                         }
                         catch (FormatException e) {
-                            Toast.makeText(getBaseContext(), "Wrong Format", Toast.LENGTH_SHORT).show();
-                            flag = false;
+                            Toast.makeText(getBaseContext(), "Failed to Add", Toast.LENGTH_SHORT).show();
                         }
+                        // inform the user that the workout is saved
+                        Toast.makeText(getBaseContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
-                        // if flag is still true, then the string is safe to parse and add to the adapter.
-                        // if this fails for some reason, inform the user.
-                        if (flag) {
+            // If the user cancels the operation, nothing should be saved to the ListView,
+            // and a Toast dialog pops up showing them that the operation was cancelled successfully
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Finally, Show the dialog
+            alert.show();
+        }
+        else if (id == 1) {
+            // Adapted from
+            // https://stackoverflow.com/questions/18799216/how-to-make-a-edittext-box-in-a-dialog
+
+            // Create the input text box and instantiate the AlertDialog Builder
+            final EditText input_2 = new EditText(this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            // Set the title and the intro message
+            alert.setTitle("      Workout Remover     ");
+            alert.setMessage("Input Index to Remove");
+
+            // Set the view for the AlertDialog Builder, in this case, set it to the EditText box
+            alert.setView(input_2);
+
+            // When the user writes their information into the EditText box,
+            // Update the ListView holding their information and additionally
+            // Show a Toast Dialog showing that the item was saved successfully
+            alert.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // input value from user
+                    String value = input_2.getText().toString();
+                    int parsedVal;
+                    try {
+                        parsedVal = Integer.parseInt(value) - 1;
+                        Log.d(TAG, "" + parsedVal);
+                        if (parsedVal < todaysWorkouts.size() && parsedVal >= 0) {
+                            String element = todaysWorkouts.get(parsedVal);
+                            todaysWorkouts.remove(element);
                             try {
-                                adapter.add(parseWorkoutFromString(value).toString());
+                                removeStrFromFile(element);
+                            } catch (IOException e) {
+                                Toast.makeText(getBaseContext(), "Failed to remove from file", Toast.LENGTH_LONG).show();
                             }
-                            catch (FormatException e) {
-                                Toast.makeText(getBaseContext(), "Failed to Add", Toast.LENGTH_SHORT).show();
-                            }
-                            // inform the user that the workout is saved
-                            Toast.makeText(getBaseContext(), "Saved", Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(getBaseContext(), "Removed " + element, Toast.LENGTH_LONG).show();
                         }
+                        else throw new NumberFormatException();
                     }
-                });
-
-                // If the user cancels the operation, nothing should be saved to the ListView,
-                // and a Toast dialog pops up showing them that the operation was cancelled successfully
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+                    catch (NumberFormatException e) {
+                        Toast.makeText(getBaseContext(), "Entered index is out of bounds", Toast.LENGTH_LONG).show();
                     }
-                });
+                }
+            });
 
-                // Finally, Show the dialog
-                alert.show();
+            // If the user cancels the operation, nothing should be saved to the ListView,
+            // and a Toast dialog pops up showing them that the operation was cancelled successfully
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Finally, Show the dialog
+            alert.show();
         }
         // If nothing is to be done, then return null
         return null;

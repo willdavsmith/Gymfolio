@@ -15,4 +15,5 @@
     <string name="example_workout">3x15 Bench 145</string>
     <string name="add_button">Add</string>
     <string name="today">Today</string>
+    <string name="remove_button">Remove</string>
 </resources>
