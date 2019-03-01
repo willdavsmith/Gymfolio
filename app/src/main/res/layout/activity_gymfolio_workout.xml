@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorBackground"
     android:layout_height="match_parent">
 
     <ListView
@@ -26,11 +27,14 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:text="@string/today"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/colorWhite"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@color/colorWhite" />
 
 </android.support.constraint.ConstraintLayout>
