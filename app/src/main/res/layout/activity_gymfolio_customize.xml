@@ -16,7 +16,6 @@
         android:text="@string/monday"
         app:layout_constraintBottom_toTopOf="@+id/swc_tuesday"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swc_tuesday" />
 
@@ -86,11 +85,10 @@
         android:layout_height="50dp"
         android:layout_marginStart="127dp"
         android:layout_marginEnd="127dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/sunday"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swc_saturday" />
 
@@ -99,14 +97,13 @@
         android:layout_width="385dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="39dp"
+        android:layout_marginBottom="21dp"
         android:text="@string/customize_intro"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/swc_monday"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
