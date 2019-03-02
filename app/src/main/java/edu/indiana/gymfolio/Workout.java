@@ -1,5 +1,26 @@
 package edu.indiana.gymfolio;
 
+/*
+ * Workout.java
+ *
+ * A Class that encapsulates a 'workout', which is constructed from
+ *  -   an integer number of sets
+ *  -   an integer number of reps
+ *  -   a String name
+ *  -   an integer weight
+ *
+ *  This class is used by the activities in the application to hold these
+ *  data fields for more efficient access to the data.
+ *
+ * Created by: Will Smith
+ * Created on: 2/23/19
+ * Last Modified by: Will Smith
+ * Last Modified on: 3/1/19
+ * Assignment/Project: A290 Android - Final Project
+ * Part of: Gymfolio.
+ *
+ **/
+
 public class Workout {
     // Instance Variables
     private int sets;

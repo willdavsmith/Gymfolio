@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+    <!-- activity_gymfolio_main.xml
+    Provides the activity layout for GymfolioMainActivity,
+    which shows the main screen of the application.
+    Created by: Will Smith
+    Created on: 2/23/19
+    Last Modified by: Will Smith
+    Last Modified on: 3/1/19
+    Assignment/Project: A290 Android - Final Project
+    Part of: Gymfolio -->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +18,7 @@
     android:background="@color/colorBackground"
     tools:context=".GymfolioMainActivity">
 
+    <!--The button to begin the workout-->
     <Button
         android:id="@+id/btn_begin_workout"
         android:layout_width="200dp"
@@ -20,6 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--The button to create and/or customize the user's stored workouts-->
     <Button
         android:id="@+id/btn_customize_workout"
         android:layout_width="200dp"
@@ -33,6 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_begin_workout" />
 
+    <!--The button on screen to exit the application.-->
     <Button
         android:id="@+id/btn_exit"
         android:layout_width="200dp"

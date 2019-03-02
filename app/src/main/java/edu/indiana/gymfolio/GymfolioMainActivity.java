@@ -1,5 +1,21 @@
 package edu.indiana.gymfolio;
 
+/*
+ * GymfolioMainActivity.java
+ *
+ * Implements the main screen of the application. Allows the
+ * user to choose between 'Begin Workout', 'Customize Workout',
+ * and 'Exit'.
+ *
+ * Created by: Will Smith
+ * Created on: 2/23/19
+ * Last Modified by: Will Smith
+ * Last Modified on: 3/1/19
+ * Assignment/Project: A290 Android - Final Project
+ * Part of: Gymfolio, associated to activity_gymfolio_main.xml
+ *
+ **/
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +23,6 @@ import android.content.Intent;
 import android.view.View.OnClickListener;
 
 public class GymfolioMainActivity extends AppCompatActivity implements OnClickListener {
-
 
     public void onClick(View v) {
         switch(v.getId()) {

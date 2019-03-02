@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <array name="weekday">
-        <item>@string/monday</item>
-        <item>@string/tuesday</item>
-        <item>@string/wednesday</item>
-    </array>
-</resources>

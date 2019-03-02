@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+    <!-- activity_gymfolio_customize.xml
+    Provides the activity layout for GymfolioCustomizeActivity,
+    which determines the user's choice of day to customize.
+    Created by: Will Smith
+    Created on: 2/23/19
+    Last Modified by: Will Smith
+    Last Modified on: 3/1/19
+    Assignment/Project: A290 Android - Final Project
+    Part of: Gymfolio -->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,6 +19,7 @@
     tools:context=".GymfolioMainActivity">
 
 
+    <!--The seven switches representing the days of the week.-->
     <Switch
         android:id="@+id/swc_monday"
         android:layout_width="130dp"
@@ -93,6 +105,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swc_saturday" />
 
+    <!--A TextView that shows an intro message and instructions.-->
     <TextView
         android:id="@+id/txt_customize_intro"
         android:layout_width="385dp"
@@ -108,6 +121,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--The 'Save' and continue Button.-->
     <Button
         android:id="@+id/btn_save"
         style="@style/Widget.AppCompat.Button.Colored"

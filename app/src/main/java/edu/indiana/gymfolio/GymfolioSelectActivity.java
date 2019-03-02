@@ -1,13 +1,38 @@
 package edu.indiana.gymfolio;
 
+/*
+ * GymfolioSelectActivity.java
+ *
+ * Provides the majority of the functionality of the application.
+ *
+ * Utilizes Java File IO to Create, Read, Update, and Delete
+ * workouts from their routine based on the day that they have selected
+ * in the GymfolioCustomizeActivity.
+ *
+ * Provides a variety of methods for parsing, unparsing, and storing data
+ * in files and various data structures within the class for local and persistent access.
+ *
+ * Provides the backend of the user interface which allows the user to
+ * access the files indirectly, providing them feedback based on their input.
+ *
+ * Created by: Will Smith
+ * Created on: 2/23/19
+ * Last Modified by: Will Smith
+ * Last Modified on: 3/1/19
+ * Assignment/Project: A290 Android - Final Project
+ * Part of: Gymfolio, associated to activity_gymfolio_select.xml
+ *
+ **/
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.nfc.FormatException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -21,9 +46,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GymfolioSelectActivity extends ListActivity implements OnClickListener {
-
-    // Logcat tag for debugging purposes
-    String TAG = "SELECTEDITEMSFROMWEEK";
 
     // ArrayList that will store the user's workouts for the day
     ArrayList<String> todaysWorkouts = new ArrayList<>();
@@ -41,8 +63,6 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
     // A string representing the current day.
     String day;
 
-    // TODO: ADD DELETE BUTTON
-
     /**
      * Handles the on creation event for the SelectActivity.
      * @param savedInstanceState A Bundle Object with information from the last activity.
@@ -52,9 +72,11 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gymfolio_select);
 
+        // Add the 'add' button and set the click listener
         View AddButton = findViewById(R.id.btn_add_workout);
         AddButton.setOnClickListener(this);
 
+        // Add the 'remove' button and set the click listener
         View RemoveButton = findViewById(R.id.btn_remove_workout);
         RemoveButton.setOnClickListener(this);
 
@@ -69,8 +91,6 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
 
             // Instantiate the adapter with a ListView (this), the android default list item layout,
             // and the above ArrayList.
-            // Adapted from
-            // https://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todaysWorkouts);
             setListAdapter(adapter);
 
@@ -87,7 +107,7 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
                 appendStrToFile(value);
             }
             catch (Exception e) {
-                Log.d(TAG, "cannot find workout file");
+                Toast.makeText(getBaseContext(), "Failed to add to file.", Toast.LENGTH_SHORT).show();
             }
 
             // Parses and adds the current values in the file to the adapter,
@@ -99,7 +119,7 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
                 }
             }
             catch (Exception e) {
-                Log.d(TAG, "something went wrong...");
+                Toast.makeText(getBaseContext(), "Incorrect format", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -125,7 +145,7 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
                     Workout result = parseWorkoutFromString(line);
                     wks.add(result);
                 } catch (FormatException e) {
-                    Log.d(TAG, "Incorrect format");
+                    Toast.makeText(getBaseContext(), "Incorrect format", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -156,7 +176,7 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
     }
 
     /**
-     * Appends a string to the instance variable 'workoutFile'
+     * Appends a string and a new line to the instance variable 'workoutFile'
      * @param str The string to be appended.
      * @throws IOException in the case of an IO Error in adding to the file.
      */
@@ -173,6 +193,7 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
      */
     public void removeStrFromFile(String str) throws IOException {
         Scanner input;
+        // Creates a temporary file to hold the data from the current file
         File tempFile = new File(directory, "temp.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         input = new Scanner(workoutFile);
@@ -180,18 +201,22 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
         while(input.hasNextLine()) {
             // trim newline when comparing with lineToRemove
             String line = input.nextLine();
+            // if the line is equivalent to the line to be removed, then do not
+            // add it to the temporary file
             try {
                 if(parseWorkoutFromString(line).toString().equals(str)) continue;
             }
             catch (Exception e) {
-                // Do nothing.
+                // Do nothing. This is working as intended.
             }
 
+            // If it is not equivalent, then add it to the output file
             writer.write(line + '\n');
         }
         input.close();
         writer.close();
-        Log.d(TAG, "" + tempFile.renameTo(workoutFile));
+        // Set the file with the correct data to reference the file in question.
+        tempFile.renameTo(workoutFile);
     }
 
     /**
@@ -226,15 +251,21 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
     }
 
     /**
-     * Creates the dialog. Structure adapted from Meeting 5.
+     * Creates the dialog.
      * @param id The id of the dialog to be created.
      * @return a Dialog object.
      */
+    @SuppressWarnings("deprecation")
     protected Dialog onCreateDialog(int id) {
-        if (id == 0) {
-            // Adapted from
-            // https://stackoverflow.com/questions/18799216/how-to-make-a-edittext-box-in-a-dialog
+        // The keyboard manager
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        // Toggle ON
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
 
+        // Determine the state of ID from showDialog(id)
+        // 0 -> add button
+        // 1 -> remove button
+        if (id == 0) {
             // Create the input text box and instantiate the AlertDialog Builder
             final EditText input = new EditText(this);
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -251,6 +282,8 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
             // Show a Toast Dialog showing that the item was saved successfully
             alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                    // Toggle keyboard off
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                     // flag for determining whether or not a workout should be added to the ListView
                     boolean flag = true;
 
@@ -298,6 +331,8 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
             // and a Toast dialog pops up showing them that the operation was cancelled successfully
             alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                    // Toggle keyboard off
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                     Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -306,9 +341,6 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
             alert.show();
         }
         else if (id == 1) {
-            // Adapted from
-            // https://stackoverflow.com/questions/18799216/how-to-make-a-edittext-box-in-a-dialog
-
             // Create the input text box and instantiate the AlertDialog Builder
             final EditText input_2 = new EditText(this);
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -322,17 +354,25 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
 
             // When the user writes their information into the EditText box,
             // Update the ListView holding their information and additionally
-            // Show a Toast Dialog showing that the item was saved successfully
+            // Show a Toast Dialog showing that the item was deleted successfully
             alert.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                    // Toggle keyboard off
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                     // input value from user
                     String value = input_2.getText().toString();
                     int parsedVal;
                     try {
+                        // Make sure the value is able to be parsed to an integer
+                        // And set the index from 1-based to 0-based
                         parsedVal = Integer.parseInt(value) - 1;
-                        Log.d(TAG, "" + parsedVal);
+                        // If the value is in the correct range
                         if (parsedVal < todaysWorkouts.size() && parsedVal >= 0) {
+                            // Find the element in question from the index gived
                             String element = todaysWorkouts.get(parsedVal);
+
+                            // Remove reference from all necessary lists and files.
+                            // And inform the user of the result.
                             todaysWorkouts.remove(element);
                             try {
                                 removeStrFromFile(element);
@@ -354,7 +394,11 @@ public class GymfolioSelectActivity extends ListActivity implements OnClickListe
             // and a Toast dialog pops up showing them that the operation was cancelled successfully
             alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                    // Toggle keyboard off
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                     Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                 }
             });
 

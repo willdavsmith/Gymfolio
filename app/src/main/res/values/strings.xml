@@ -1,3 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!-- strings.xml
+    Provides a list of string resources to be used in the application.
+    Created by: Will Smith
+    Created on: 2/23/19
+    Last Modified by: Will Smith
+    Last Modified on: 3/1/19
+    Assignment/Project: A290 Android - Final Project
+    Part of: Gymfolio -->
+
 <resources>
     <string name="app_name">Gymfolio</string>
     <string name="begin_workout">Begin Workout</string>

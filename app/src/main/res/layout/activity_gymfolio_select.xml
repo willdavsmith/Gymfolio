@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+    <!-- activity_gymfolio_select.xml
+    Provides the activity layout for GymfolioSelectActivity,
+    which provides a host of functionality for the app. See the
+    associated Java file for more details.
+    Created by: Will Smith
+    Created on: 2/23/19
+    Last Modified by: Will Smith
+    Last Modified on: 3/1/19
+    Assignment/Project: A290 Android - Final Project
+    Part of: Gymfolio -->
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +19,7 @@
     android:background="@color/colorBackground"
     android:layout_height="match_parent">
 
+    <!--A ListView that stores all the data selected by the user.-->
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
@@ -18,6 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--The button to add a workout, initiates a dialog for further user input.-->
     <Button
         android:id="@+id/btn_add_workout"
         style="@style/Widget.AppCompat.Button.Colored"
@@ -33,6 +47,7 @@
         app:layout_constraintStart_toEndOf="@+id/btn_remove_workout"
         app:layout_constraintTop_toBottomOf="@android:id/list" />
 
+    <!--the button to remove a workout, initiates a dialog for further user input.-->
     <Button
         android:id="@+id/btn_remove_workout"
         style="@style/Widget.AppCompat.Button.Colored"

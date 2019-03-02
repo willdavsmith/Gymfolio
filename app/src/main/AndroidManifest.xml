@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.indiana.gymfolio">
-
+    <!-- AndroidManifest.xml
+    Provides the Manifest information for GymFolio
+    Created by: Will Smith
+    Created on: 2/23/19
+    Last Modified by: Will Smith
+    Last Modified on: 3/1/19
+    Assignment/Project: A290 Android - Final Project
+    Part of: Gymfolio -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

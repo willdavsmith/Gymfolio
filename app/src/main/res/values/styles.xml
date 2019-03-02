@@ -1,8 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!-- styles.xml
+    Provides the theme of the application.
+    Created by: Android Studio
+    Created on: 2/23/19
+    Last Modified by: Will Smith
+    Last Modified on: 2/23/19
+    Assignment/Project: A290 Android - Final Project
+    Part of: Gymfolio -->
+
 <resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
