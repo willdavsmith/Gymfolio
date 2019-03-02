@@ -1,0 +1,71 @@
+USER'S GUIDE
+
+Gymfolio is an application that helps you create, customize, and view
+their workout plan each week. 
+
+Your workout plan is saved locally
+in the application files, and will not delete unless the application is deleted.
+
+The following is a standard flow for creating a workout and viewing the 
+current day's workout.
+
+
+MAIN SCREEN
+
+There are three buttons on the main screen
+
+To begin a workout for the current day, press the first button.
+To customize a workout for any day of the week, press the second button.
+To exit the application (your information will be saved), press the third button.
+
+
+SELECT DAY SCREEN
+
+There are seven switch buttons on the screen.
+Each corresponds to a single day that is able to be edited in the edit screen.
+Per the instructions, select one of these and continue to the next screen
+using the button in the bottom right.
+
+
+EDIT WORKOUT SCREEN
+
+There are two buttons on the screen here - the left (remove) and 
+right (add) buttons.
+These buttons are used to remove and add workouts to the current day.
+
+Pressing the 'add' button will allow you to input a 'workout', or in this case, a
+series of numbers and words that constitute a workout for the purposes of the
+application.
+
+Note that the workout entered must be in the correct format: i.e.,
+		#sets,#reps,name,#weight
+			   in the form
+		number,number,word,number
+with no spaces between the commas. An example input in this section would be
+		  5,10,Bench Press,145
+		  		  or
+		   3,5,Deadlifts,250
+
+Once 'save' is pressed, the given workout will be added to the screen. Add as many
+as you like for the given day.
+
+Workouts can also be removed from the list by pressing the 'remove' button.
+In the 'remove' popup dialog, input the index number of the item you would like
+to delete, for example, inputting "1" with no quotes removes the first element.
+
+Once you are satisfied with the workout on this particular day, press the back
+button on your device to return to the selection screen, or again to access the 
+main screen if your weekly workout is complete.
+
+
+MAIN SCREEN
+
+Once back at the main screen, you can press the 'begin workout' button.
+
+WORKOUT SCREEN
+
+If you created a workout for the current weekday in the previous step, then your
+workout plan should show up on the screen.
+
+This workout will be saved, so you are able to go back into the customization
+settings and repeat this process until your workout plan is exactly how you like it.
